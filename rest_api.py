@@ -6,15 +6,19 @@ app = Flask(__name__)
 # Create an API object
 api = Api(app)
 
+host = "eu-cdbr-west-03.cleardb.net"
+database = "heroku_d640986ade4d1bd"
+user = "b6cd2ad82aa067"
+password = "6625e744"
 
 @app.route('/get', methods=['GET'])
 def get():
-    connection = mysql.connector.connect(host='localhost',
-    database='riyaz',
-    user='root',
-    password='123wasd321W')
+    connection = mysql.connector.connect(host=host,
+    database=database,
+    user=user,
+    password=password)
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM riyaz.riyazus_salihin")
+    cursor.execute("SELECT * FROM riyazus_salihin")
     columns = [column[0] for column in cursor.description]
     results = []
     rows = cursor.fetchall()
@@ -28,12 +32,12 @@ def get():
 def search():
     search_str = request.args.get("search")
     print(search_str)
-    connection = mysql.connector.connect(host='localhost',
-    database='riyaz',
-    user='root',
-    password='123wasd321W')
+    connection = mysql.connector.connect(host=host,
+    database=database,
+    user=user,
+    password=password)
     cursor = connection.cursor(buffered=True)
-    search_text = "SELECT arabic, turkish, title from riyaz.riyazus_salihin WHERE turkish LIKE \"%"+search_str+"%\""
+    search_text = "SELECT arabic, turkish, title from riyazus_salihin WHERE turkish LIKE \"%"+search_str+"%\""
     cursor.execute(search_text)
     connection.commit()
     rows = cursor.fetchall()
