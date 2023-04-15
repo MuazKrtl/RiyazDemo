@@ -28,7 +28,7 @@ def get():
     cursor.close()
     return jsonify({'data': results} )
 
-@app.route('/search', methods=['POST'])
+@app.route('/search', methods=['GET','POST'])
 def search():
     search_str = request.args.get("search")
     print(search_str)
